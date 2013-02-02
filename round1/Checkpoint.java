@@ -27,6 +27,7 @@ public class Checkpoint {
 			shortestPath.put(1, 1);
 
 			int result = Integer.MAX_VALUE;
+			int kCap = Integer.MAX_VALUE;
 			boolean isFinished = false;
 
 			if (s == 1) {
@@ -35,14 +36,18 @@ public class Checkpoint {
 			}
 
 			while (!isFinished) {
-				int[] newPascal = new int[++n + 1];
-				newPascal[0] = newPascal[n] = 1;
-				for (int k = 1; k < n; k++) {
+				int[] newPascal = new int[Math.min(++n + 1, kCap)];
+				newPascal[0] = 1;
+				if (n < newPascal.length)
+					newPascal[n] = 1;
+				
+				for (int k = 1; k < (n + 2) / 2 && k < kCap; k++) {
 					newPascal[k] = pascal[k - 1] + pascal[k];
-					int path = k + (n - k);
+					if (n - k < newPascal.length)
+						newPascal[n - k] = newPascal[k];
 
 					int bestPath = shortestPath.containsKey(newPascal[k]) ? Math
-							.min(path, shortestPath.get(newPascal[k])) : path;
+							.min(n, shortestPath.get(newPascal[k])) : n;
 					shortestPath.put(newPascal[k], bestPath);
 
 					if (s % newPascal[k] == 0
@@ -54,6 +59,8 @@ public class Checkpoint {
 					if (newPascal[k] == s) {
 						isFinished = true;
 						break;
+					} else if (newPascal[k] > s) {
+						kCap = k;
 					}
 				}
 				pascal = newPascal;
