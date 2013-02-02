@@ -8,7 +8,7 @@ Here is a list of the problems currently in this repository. Problems marked wit
 
 ### Round 1
 
-* ✗ [100: Checkpoint][round11] (`Checkpoint.java`)
+* ✓ [100: Checkpoint][round11] (`Checkpoint.java`)
 * ✗ [100: Recover the Sequence][round12] (`RecoverTheSequence.java`)
 * ✗ [100: Squished Status][round13] (`SquishedStatus.java`)
 
